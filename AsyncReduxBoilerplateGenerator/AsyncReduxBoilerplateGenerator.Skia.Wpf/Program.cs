@@ -1,0 +1,3 @@
+﻿namespace AsyncReduxBoilerplateGenerator.Skia.Gtk
+{
+}
