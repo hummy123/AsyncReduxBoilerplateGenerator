@@ -1,7 +1,19 @@
-﻿namespace AsyncReduxBoilerplateGenerator.Logic
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace AsyncReduxBoilerplateGenerator.Models
 {
-    public partial class Connector
+    internal class Connector
     {
+        private List<Parameter> _parameters;
+        private string _widgetName;
+
+        public Connector(List<Parameter> parameters, string widgetName)
+        {
+            this._parameters = parameters;
+            this._widgetName = widgetName;
+        }
+
         private string Imports
         {
             get
@@ -33,9 +45,9 @@ import '{_widgetName}Widget.dart';
             get
             {
                 var sb = new StringBuilder($"{_widgetName}Widget(\n");
-                foreach (string name in _parameterNames)
+                foreach (var param in _parameters)
                 {
-                    sb.AppendLine($"\t\t\t\t{name}: vm.{name},");
+                    sb.AppendLine($"\t\t\t\t{param.Name}: vm.{param.Name},");
                 }
                 sb.Append("\t\t\t)");
                 return sb.ToString();

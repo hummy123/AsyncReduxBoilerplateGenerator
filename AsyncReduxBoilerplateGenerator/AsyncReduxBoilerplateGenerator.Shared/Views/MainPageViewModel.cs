@@ -1,5 +1,5 @@
 ﻿using AsyncReduxBoilerplateGenerator.Models;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace AsyncReduxBoilerplateGenerator
@@ -8,7 +8,7 @@ namespace AsyncReduxBoilerplateGenerator
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string _widgetName;
-        private List<Parameter> _paramList;
+        private ObservableCollection<Parameter> _paramList;
 
         public string WidgetName
         {
@@ -22,7 +22,7 @@ namespace AsyncReduxBoilerplateGenerator
             }
         }
 
-        public List<Parameter> Parameters
+        public ObservableCollection<Parameter> Parameters
         {
             get { return _paramList; }
             set
@@ -37,7 +37,7 @@ namespace AsyncReduxBoilerplateGenerator
         public MainPageViewModel()
         {
             _widgetName="";
-            _paramList = new List<Parameter>()
+            _paramList = new ObservableCollection<Parameter>()
             {
                 new Parameter("myName", "myType")
             };

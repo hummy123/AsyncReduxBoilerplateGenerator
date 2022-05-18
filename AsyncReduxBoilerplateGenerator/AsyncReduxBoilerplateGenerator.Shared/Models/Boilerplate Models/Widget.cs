@@ -1,18 +1,27 @@
-﻿/*
-namespace AsyncReduxBoilerplateGenerator.Logic
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace AsyncReduxBoilerplateGenerator.Models.Boilerplate_Models
 {
-    public partial class Widget
+    internal class Widget
     {
+        private List<Parameter> _parameters;
+        private string _widgetName;
+
+        public Widget(List<Parameter> parameters, string widgetName)
+        {
+            _parameters=parameters;
+            _widgetName=widgetName;
+        }
+
         private string Params
         {
             get
             {
                 var sb = new StringBuilder();
-                for (int i = 0; i < _parameterNames.Count; i++)
+                foreach (var param in _parameters)
                 {
-                    var name = _parameterNames[i];
-                    var type = _parameterTypes[i];
-                    sb.AppendLine($"\tfinal {type} {name};");
+                    sb.AppendLine($"\tfinal {param.Type} {param.Name};");
                 }
                 return sb.ToString();
             }
@@ -25,9 +34,9 @@ namespace AsyncReduxBoilerplateGenerator.Logic
                 var sb = new StringBuilder();
                 sb.AppendLine($"\n\tconst {_widgetName}Widget({{");
                 sb.AppendLine("\t\tkey,");
-                foreach (var name in _parameterNames)
+                foreach (var param in _parameters)
                 {
-                    sb.AppendLine($"\t\trequired this.{name},");
+                    sb.AppendLine($"\t\trequired this.{param.Name},");
                 }
                 sb.AppendLine("\t}) : super(key: key);");
                 return sb.ToString();
@@ -58,4 +67,3 @@ namespace AsyncReduxBoilerplateGenerator.Logic
         }
     }
 }
-*/

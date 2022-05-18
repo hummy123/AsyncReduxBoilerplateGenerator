@@ -18,8 +18,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Methods\WidgetLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\StateFiles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Boilerplate Models\Connector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Boilerplate Models\Factory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Boilerplate Models\Widget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Parameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Boilerplate Models\Vm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

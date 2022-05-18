@@ -1,19 +1,27 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
-namespace AsyncReduxBoilerplateGenerator.Logic
+namespace AsyncReduxBoilerplateGenerator.Models
 {
-    public partial class ViewModel
+    internal class Vm
     {
+        private List<Parameter> _parameters;
+        private string _widgetName;
+
+        public Vm(List<Parameter> parameters, string widgetName)
+        {
+            _parameters = parameters;
+            _widgetName = widgetName;
+        }
+
         private string Params
         {
             get
             {
                 var sb = new StringBuilder();
-                for (int i = 0; i < _parameterTypes.Count; i++)
+                foreach (var param in _parameters)
                 {
-                    var name = _parameterNames[i];
-                    var type = _parameterTypes[i];
-                    sb.Append($"\n\tfinal {type} {name};");
+                    sb.Append($"\n\tfinal {param.Type} {param.Name};");
                 }
                 return sb.ToString();
             }
@@ -25,15 +33,15 @@ namespace AsyncReduxBoilerplateGenerator.Logic
             {
                 var sb = new StringBuilder();
                 sb.AppendLine($"\n\t_{_widgetName}Vm({{");
-                foreach (var name in _parameterNames)
+                foreach (var param in _parameters)
                 {
-                    sb.AppendLine($"\t\trequired this.{name},");
+                    sb.AppendLine($"\t\trequired this.{param.Name},");
                 }
                 sb.AppendLine($"\t}}) : super(equals: \n\t[");
 
-                foreach (var name in _parameterNames)
+                foreach (var param in _parameters)
                 {
-                    sb.AppendLine($"\t\t{name},");
+                    sb.AppendLine($"\t\t{param.Name},");
                 }
                 sb.AppendLine("\t]);");
                 return sb.ToString();

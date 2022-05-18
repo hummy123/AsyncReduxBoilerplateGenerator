@@ -1,8 +1,15 @@
-﻿namespace AsyncReduxBoilerplateGenerator.Logic
+﻿using AsyncReduxBoilerplateGenerator.Models;
+using AsyncReduxBoilerplateGenerator.Models.Boilerplate_Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
+namespace AsyncReduxBoilerplateGenerator.Logic
 {
-    public static class Generator
+    internal class StateFiles
     {
-        public static bool SaveFile(String widgetName, String folderPath, List<string> parameterNames, List<string> parameterTypes)
+        public static bool SaveFile(string widgetName, string folderPath, List<Parameter> parameters)
         {
             try
             {
@@ -12,9 +19,9 @@
                 // create file containing state manageent logic
                 using (FileStream fs = File.Create($"{basePath}\\{widgetName}Connector.dart"))
                 {
-                    var connector = new Connector(parameterNames, widgetName);
-                    var vm = new ViewModel(parameterNames, parameterTypes, widgetName);
-                    var factory = new Factory(parameterNames, widgetName);
+                    var connector = new Connector(parameters, widgetName);
+                    var vm = new Vm(parameters, widgetName);
+                    var factory = new Factory(parameters, widgetName);
 
                     var sb = new StringBuilder();
                     sb.AppendLine(connector.ToString());
@@ -28,7 +35,7 @@
                 // create file containing pure widget
                 using (FileStream fs = File.Create($"{basePath}\\{widgetName}Widget.dart"))
                 {
-                    var widget = new Widget(parameterNames, parameterTypes, widgetName);
+                    var widget = new Widget(parameters, widgetName);
                     byte[] bytes = new UTF8Encoding(true).GetBytes(widget.ToString());
                     fs.Write(bytes, 0, bytes.Length);
                 }

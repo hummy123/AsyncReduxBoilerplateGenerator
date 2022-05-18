@@ -25,7 +25,7 @@ namespace AsyncReduxBoilerplateGenerator
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            ParamListView.Items.Add(new Models.Parameter("", ""));
+            ViewModel.Parameters.Add(new Models.Parameter("", ""));
         }
     }
 }

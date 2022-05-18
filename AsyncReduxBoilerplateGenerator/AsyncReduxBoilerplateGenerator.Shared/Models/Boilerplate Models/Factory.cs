@@ -1,17 +1,27 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
-namespace AsyncReduxBoilerplateGenerator.Logic
+namespace AsyncReduxBoilerplateGenerator.Models.Boilerplate_Models
 {
-    public partial class Factory
+    internal class Factory
     {
+        string _widgetName;
+        private List<Parameter> _parameters;
+
+        public Factory(List<Parameter> parameters, string widgetName)
+        {
+            _widgetName=widgetName;
+            _parameters=parameters;
+        }
+
         private string Params
         {
             get
             {
                 var sb = new StringBuilder();
-                foreach (var name in _parameterNames)
+                foreach (var param in _parameters)
                 {
-                    sb.AppendLine($"\t\t\t{name}:  ,");
+                    sb.AppendLine($"\t\t\t{param.Name}:  ,");
                 }
                 return sb.ToString();
             }
