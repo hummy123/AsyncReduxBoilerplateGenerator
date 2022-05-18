@@ -2,43 +2,45 @@
 using AsyncReduxBoilerplateGenerator.Models.Boilerplate_Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace AsyncReduxBoilerplateGenerator.Logic
 {
     internal class StateFiles
     {
-        public static bool SaveFile(string widgetName, string folderPath, List<Parameter> parameters)
+        public static async Task<bool> SaveFileAsync(string widgetName, List<Parameter> parameters)
         {
             try
             {
-                string basePath = $"{folderPath}\\{widgetName}";
-                System.IO.Directory.CreateDirectory(basePath);
-
-                // create file containing state manageent logic
-                using (FileStream fs = File.Create($"{basePath}\\{widgetName}Connector.dart"))
+                var folderPicker = new FolderPicker();
+                folderPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+                folderPicker.FileTypeFilter.Add("*");
+                StorageFolder parentFolder = await folderPicker.PickSingleFolderAsync();
+                if (parentFolder == null)
                 {
-                    var connector = new Connector(parameters, widgetName);
-                    var vm = new Vm(parameters, widgetName);
-                    var factory = new Factory(parameters, widgetName);
-
-                    var sb = new StringBuilder();
-                    sb.AppendLine(connector.ToString());
-                    sb.AppendLine(vm.ToString());
-                    sb.AppendLine(factory.ToString());
-
-                    byte[] bytes = new UTF8Encoding(true).GetBytes(sb.ToString());
-                    fs.Write(bytes, 0, bytes.Length);
+                    return false;
                 }
+                var folder = await parentFolder.CreateFolderAsync(widgetName);
+                var file = await folder.CreateFileAsync($"{widgetName}Connector.dart");
 
-                // create file containing pure widget
-                using (FileStream fs = File.Create($"{basePath}\\{widgetName}Widget.dart"))
-                {
-                    var widget = new Widget(parameters, widgetName);
-                    byte[] bytes = new UTF8Encoding(true).GetBytes(widget.ToString());
-                    fs.Write(bytes, 0, bytes.Length);
-                }
+                var connector = new Connector(parameters, widgetName);
+                var vm = new Vm(parameters, widgetName);
+                var factory = new Factory(parameters, widgetName);
+
+                var sb = new StringBuilder();
+                sb.AppendLine(connector.ToString());
+                sb.AppendLine(vm.ToString());
+                sb.AppendLine(factory.ToString());
+
+                await FileIO.WriteTextAsync(file, sb.ToString());
+
+                // widget
+                var widget = new Widget(parameters, widgetName);
+                file = await folder.CreateFileAsync($"{widgetName}Widget.dart");
+                await FileIO.WriteTextAsync(file, widget.ToString());
                 return true;
             }
             catch (Exception ex)

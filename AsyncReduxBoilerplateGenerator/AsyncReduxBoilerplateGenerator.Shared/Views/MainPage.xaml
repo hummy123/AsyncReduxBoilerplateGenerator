@@ -73,7 +73,7 @@
                         BorderBrush="Gray"
                         BorderThickness="1"
                         HorizontalAlignment="Stretch"
-                        Content="SAVE"/>
+                        Content="ADD NEW PARAMETER"/>
                 </StackPanel>
             </Border>
             <Button 

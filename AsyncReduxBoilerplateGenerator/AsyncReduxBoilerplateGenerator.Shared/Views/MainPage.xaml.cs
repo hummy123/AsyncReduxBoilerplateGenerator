@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using AsyncReduxBoilerplateGenerator.Logic;
+using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -18,9 +20,10 @@ namespace AsyncReduxBoilerplateGenerator
 
         public MainPageViewModel ViewModel { get; private set; }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveButton.Content = ViewModel.WidgetName;
+            var t = await StateFiles.SaveFileAsync(ViewModel.WidgetName, ViewModel.Parameters.ToList());
+            System.Console.WriteLine(t);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
