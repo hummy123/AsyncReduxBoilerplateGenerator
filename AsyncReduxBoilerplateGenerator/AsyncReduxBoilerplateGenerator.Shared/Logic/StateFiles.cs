@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
+
 namespace AsyncReduxBoilerplateGenerator.Logic
 {
     internal class StateFiles
@@ -16,7 +17,6 @@ namespace AsyncReduxBoilerplateGenerator.Logic
             try
             {
                 var folderPicker = new FolderPicker();
-                folderPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
                 folderPicker.FileTypeFilter.Add("*");
                 StorageFolder parentFolder = await folderPicker.PickSingleFolderAsync();
                 if (parentFolder == null)

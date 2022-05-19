@@ -22,8 +22,7 @@ namespace AsyncReduxBoilerplateGenerator
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var t = await StateFiles.SaveFileAsync(ViewModel.WidgetName, ViewModel.Parameters.ToList());
-            System.Console.WriteLine(t);
+            await StateFiles.SaveFileAsync(ViewModel.WidgetName, ViewModel.Parameters.ToList());
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
