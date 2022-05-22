@@ -11,6 +11,7 @@
   <Import Project="AsyncReduxBoilerplateGenerator.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
   <ItemGroup>
+    <_Globbed_Compile Remove="Logic\PascalToSnake.cs" />
     <_Globbed_Compile Remove="Logic\StateFiles.cs" />
     <_Globbed_Compile Remove="Models\Boilerplate Models\Factory.cs" />
     <_Globbed_Compile Remove="Models\Boilerplate Models\Widget.cs" />

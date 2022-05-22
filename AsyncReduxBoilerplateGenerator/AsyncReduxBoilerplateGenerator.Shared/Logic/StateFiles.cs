@@ -24,7 +24,8 @@ namespace AsyncReduxBoilerplateGenerator.Logic
                     return false;
                 }
                 var folder = await parentFolder.CreateFolderAsync(widgetName);
-                var file = await folder.CreateFileAsync($"{widgetName}Connector.dart");
+
+                var file = await folder.CreateFileAsync($"{widgetName}Connector".ToSnakeCase() + ".dart");
 
                 var connector = new Connector(parameters, widgetName);
                 var vm = new Vm(parameters, widgetName);
@@ -39,7 +40,7 @@ namespace AsyncReduxBoilerplateGenerator.Logic
 
                 // widget
                 var widget = new Widget(parameters, widgetName);
-                file = await folder.CreateFileAsync($"{widgetName}Widget.dart");
+                file = await folder.CreateFileAsync($"{widgetName}Widget".ToSnakeCase() + ".dart");
                 await FileIO.WriteTextAsync(file, widget.ToString());
                 return true;
             }

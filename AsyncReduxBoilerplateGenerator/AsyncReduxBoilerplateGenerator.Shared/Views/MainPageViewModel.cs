@@ -39,7 +39,7 @@ namespace AsyncReduxBoilerplateGenerator
             _widgetName="";
             _paramList = new ObservableCollection<Parameter>()
             {
-                new Parameter("myName", "myType")
+                new Parameter("", "")
             };
         }
     }
