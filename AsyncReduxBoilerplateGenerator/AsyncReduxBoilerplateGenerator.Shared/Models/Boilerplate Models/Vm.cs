@@ -41,6 +41,15 @@ namespace AsyncReduxBoilerplateGenerator.Models
 
                 foreach (var param in _parameters)
                 {
+                    // don't want to add functions to equals list
+                    // as this is not valid, so skip adding if type is function.
+                    if (
+                        (param.Type.Contains("VoidCallback", System.StringComparison.OrdinalIgnoreCase))
+                        || (param.Type.Contains("Function", System.StringComparison.OrdinalIgnoreCase))
+                        )
+                    {
+                        continue;
+                    }
                     sb.AppendLine($"\t\t{param.Name},");
                 }
                 sb.AppendLine("\t]);");
