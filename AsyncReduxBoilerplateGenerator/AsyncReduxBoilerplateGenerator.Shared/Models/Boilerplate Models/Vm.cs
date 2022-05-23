@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace AsyncReduxBoilerplateGenerator.Models
@@ -43,10 +44,9 @@ namespace AsyncReduxBoilerplateGenerator.Models
                 {
                     // don't want to add functions to equals list
                     // as this is not valid, so skip adding if type is function.
-                    if (
-                        (param.Type.Contains("VoidCallback", System.StringComparison.OrdinalIgnoreCase))
-                        || (param.Type.Contains("Function", System.StringComparison.OrdinalIgnoreCase))
-                        )
+                    bool containsVC = param.Type.IndexOf("VoidCallback", StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool containsFunc = param.Type.IndexOf("Function", StringComparison.OrdinalIgnoreCase) >= 0;
+                    if (containsVC || containsFunc)
                     {
                         continue;
                     }
