@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.System;
 
 
 namespace AsyncReduxBoilerplateGenerator.Logic
@@ -18,13 +19,14 @@ namespace AsyncReduxBoilerplateGenerator.Logic
             {
                 var folderPicker = new FolderPicker();
                 folderPicker.FileTypeFilter.Add("*");
+
                 StorageFolder parentFolder = await folderPicker.PickSingleFolderAsync();
                 if (parentFolder == null)
                 {
                     return false;
                 }
                 var widgetSnakeCase = widgetName.ToSnakeCase();
-                var folder = await parentFolder.CreateFolderAsync(widgetName);
+                var folder = await parentFolder.CreateFolderAsync(widgetSnakeCase);
 
                 var file = await folder.CreateFileAsync($"{widgetSnakeCase}_connector.dart");
 
@@ -43,6 +45,7 @@ namespace AsyncReduxBoilerplateGenerator.Logic
                 var widget = new Widget(parameters, widgetName);
                 file = await folder.CreateFileAsync($"{widgetSnakeCase}_widget.dart");
                 await FileIO.WriteTextAsync(file, widget.ToString());
+                Launcher.LaunchFolderAsync(folder);
                 return true;
             }
             catch (Exception ex)
