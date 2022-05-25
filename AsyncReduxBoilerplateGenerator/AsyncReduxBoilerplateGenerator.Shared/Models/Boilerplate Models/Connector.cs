@@ -7,11 +7,13 @@ namespace AsyncReduxBoilerplateGenerator.Models
     {
         private List<Parameter> _parameters;
         private string _widgetName;
+        private string _widgetNameSnake;
 
-        public Connector(List<Parameter> parameters, string widgetName)
+        public Connector(List<Parameter> parameters, string widgetName, string widgetNameSnake)
         {
             this._parameters = parameters;
             this._widgetName = widgetName;
+            this._widgetNameSnake = widgetNameSnake;
         }
 
         private string Imports

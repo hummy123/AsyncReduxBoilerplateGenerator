@@ -17,6 +17,22 @@ namespace AsyncReduxBoilerplateGenerator.Logic
         {
             try
             {
+                // add non-empty parameters to new list
+                List<Parameter> _parameters = new List<Parameter>();
+                foreach (var param in parameters)
+                {
+                    if (!String.IsNullOrWhiteSpace(param.Name)
+                        && !String.IsNullOrWhiteSpace(param.Type))
+                    {
+                        _parameters.Add(param);
+                    }
+                }
+
+                if (_parameters.Count == 0)
+                {
+                    throw new ArgumentException("Given parameters must have a type and a name.");
+                }
+
                 var folderPicker = new FolderPicker();
                 folderPicker.FileTypeFilter.Add("*");
 
@@ -30,9 +46,9 @@ namespace AsyncReduxBoilerplateGenerator.Logic
 
                 var file = await folder.CreateFileAsync($"{widgetSnakeCase}_connector.dart");
 
-                var connector = new Connector(parameters, widgetName);
-                var vm = new Vm(parameters, widgetName);
-                var factory = new Factory(parameters, widgetName);
+                var connector = new Connector(_parameters, widgetName, widgetSnakeCase);
+                var vm = new Vm(_parameters, widgetName);
+                var factory = new Factory(_parameters, widgetName);
 
                 var sb = new StringBuilder();
                 sb.AppendLine(connector.ToString());
@@ -42,7 +58,7 @@ namespace AsyncReduxBoilerplateGenerator.Logic
                 await FileIO.WriteTextAsync(file, sb.ToString());
 
                 // widget
-                var widget = new Widget(parameters, widgetName);
+                var widget = new Widget(_parameters, widgetName);
                 file = await folder.CreateFileAsync($"{widgetSnakeCase}_widget.dart");
                 await FileIO.WriteTextAsync(file, widget.ToString());
                 Launcher.LaunchFolderAsync(folder);

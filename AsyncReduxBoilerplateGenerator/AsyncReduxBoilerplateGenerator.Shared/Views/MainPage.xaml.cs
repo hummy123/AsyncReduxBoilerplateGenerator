@@ -1,4 +1,5 @@
 ﻿using AsyncReduxBoilerplateGenerator.Logic;
+using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,7 +23,20 @@ namespace AsyncReduxBoilerplateGenerator
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            await StateFiles.SaveFileAsync(ViewModel.WidgetName, ViewModel.Parameters.ToList());
+            try
+            {
+                await StateFiles.SaveFileAsync(ViewModel.WidgetName, ViewModel.Parameters.ToList());
+            }
+            catch (Exception err)
+            {
+                var dialogue = new ContentDialog()
+                {
+                    Title ="Error",
+                    Content = err.Message,
+                    CloseButtonText = "OK"
+                };
+                await dialogue.ShowAsync();
+            }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
