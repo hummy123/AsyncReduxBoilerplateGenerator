@@ -24,7 +24,7 @@ namespace AsyncReduxBoilerplateGenerator.Models
 $@"
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import '{_widgetNameSnake}Widget.dart';
+import '{_widgetNameSnake}_widget.dart';
 
 // This is an intermediary logic widget.
 // If you are doing design work, go to {_widgetName}Widget
