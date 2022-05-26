@@ -49,19 +49,22 @@ namespace AsyncReduxBoilerplateGenerator.Logic
                 var connector = new Connector(_parameters, widgetName, widgetSnakeCase);
                 var vm = new Vm(_parameters, widgetName);
                 var factory = new Factory(_parameters, widgetName);
+                var widget = new Widget(_parameters, widgetName);
 
                 var sb = new StringBuilder();
                 sb.AppendLine(connector.ToString());
                 sb.AppendLine(vm.ToString());
                 sb.AppendLine(factory.ToString());
 
+#if HAS_UNO_WASM
+                sb.AppendLine(widget.ToString());
                 await FileIO.WriteTextAsync(file, sb.ToString());
-
-                // widget
-                var widget = new Widget(_parameters, widgetName);
+#else
+                await FileIO.WriteTextAsync(file, sb.ToString());
                 file = await folder.CreateFileAsync($"{widgetSnakeCase}_widget.dart");
                 await FileIO.WriteTextAsync(file, widget.ToString());
-                Launcher.LaunchFolderAsync(folder);
+                await Launcher.LaunchFolderAsync(folder);
+#endif
                 return true;
             }
             catch (Exception ex)
