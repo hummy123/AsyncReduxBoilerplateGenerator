@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AsyncReduxBoilerplateGenerator.Models
 {
-    internal class Connector
+    public class Connector
     {
         private List<Parameter> _parameters;
         private string _widgetName;

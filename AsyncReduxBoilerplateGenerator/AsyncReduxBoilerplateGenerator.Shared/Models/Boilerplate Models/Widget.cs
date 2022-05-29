@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AsyncReduxBoilerplateGenerator.Models.Boilerplate_Models
 {
-    internal class Widget
+    public class Widget
     {
         private List<Parameter> _parameters;
         private string _widgetName;
