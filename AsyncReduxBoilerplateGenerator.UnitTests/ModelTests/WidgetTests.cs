@@ -42,8 +42,8 @@ class ForestWidget extends StatelessWidget {
             // with a single whitespace so formatting isn't an issue in comparison.
             // Remove any trailing/leading whitespace too.
             expectedOutput = Regex.Replace(expectedOutput, @"\s+", " ");
-            expectedOutput = expectedOutput.Trim();
             output = Regex.Replace(output, @"\s+", " ");
+            expectedOutput = expectedOutput.Trim();
             output = output.Trim();
 
             Assert.AreEqual(expectedOutput, output);

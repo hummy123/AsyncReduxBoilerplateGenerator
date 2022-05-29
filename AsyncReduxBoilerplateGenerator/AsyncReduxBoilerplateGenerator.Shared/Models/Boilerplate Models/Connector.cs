@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsyncReduxBoilerplateGenerator.Logic;
+using System.Collections.Generic;
 using System.Text;
 
 namespace AsyncReduxBoilerplateGenerator.Models
@@ -7,13 +8,11 @@ namespace AsyncReduxBoilerplateGenerator.Models
     {
         private List<Parameter> _parameters;
         private string _widgetName;
-        private string _widgetNameSnake;
 
-        public Connector(List<Parameter> parameters, string widgetName, string widgetNameSnake)
+        public Connector(List<Parameter> parameters, string widgetName)
         {
             this._parameters = parameters;
             this._widgetName = widgetName;
-            this._widgetNameSnake = widgetNameSnake;
         }
 
         private string Imports
@@ -24,7 +23,7 @@ namespace AsyncReduxBoilerplateGenerator.Models
 $@"
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import '{_widgetNameSnake}_widget.dart';
+import '{_widgetName.ToSnakeCase()}_widget.dart';
 
 // This is an intermediary logic widget.
 // If you are doing design work, go to {_widgetName}Widget

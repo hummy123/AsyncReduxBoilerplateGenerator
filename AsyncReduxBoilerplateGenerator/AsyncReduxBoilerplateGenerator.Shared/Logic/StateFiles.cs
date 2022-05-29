@@ -46,7 +46,7 @@ namespace AsyncReduxBoilerplateGenerator.Logic
 
                 var file = await folder.CreateFileAsync($"{widgetSnakeCase}_connector.dart");
 
-                var connector = new Connector(_parameters, widgetName, widgetSnakeCase);
+                var connector = new Connector(_parameters, widgetName);
                 var vm = new Vm(_parameters, widgetName);
                 var factory = new Factory(_parameters, widgetName);
                 var widget = new Widget(_parameters, widgetName);
