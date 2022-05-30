@@ -18,24 +18,24 @@ namespace AsyncReduxBoilerplateGenerator.UnitTests.ModelTests
             var widget = new Widget(parameters, "Forest");
 
             string expectedOutput = @"
-import 'package:flutter/material.dart';
+            import 'package:flutter/material.dart';
 
-class ForestWidget extends StatelessWidget {
-	final String forest;
-	final int tree;
+            class ForestWidget extends StatelessWidget {
+	            final String forest;
+	            final int tree;
 
-	const ForestWidget({
-		key,
-		required this.forest,
-		required this.tree,
-	}) : super(key: key);
+	            const ForestWidget({
+		            key,
+		            required this.forest,
+		            required this.tree,
+	            }) : super(key: key);
 
-	@override
-	Widget build(BuildContext context) {
-		return Container();
-	}
-}
-";
+	            @override
+	            Widget build(BuildContext context) {
+		            return Container();
+	            }
+            }
+            ";
             var output = widget.ToString();
 
             // replace all whitespace (normal " " space, tabs, newlines, etc.)
