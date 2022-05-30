@@ -38,7 +38,6 @@ namespace AsyncReduxBoilerplateGenerator.UnitTests.ModelTests
             output = output.Trim();
 
             Assert.AreEqual(expectedOutput, output);
-            Assert.AreEqual(expectedOutput, output);
         }
     }
 }
