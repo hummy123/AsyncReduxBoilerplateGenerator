@@ -10,15 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
    <ScrollViewer>
         <Grid
-            Margin="20">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+            ColumnDefinitions="*"
+            RowDefinitions="Auto, Auto"
+            Margin="11">
 
             <Border
                 Grid.Row="0"
@@ -41,15 +35,12 @@
                                 Header="Widget Name"
                                 PlaceholderText="Widget Name"
                                 Margin="20" />
+                        
                     <ListView x:Name="ParamListView"
                         ItemsSource="{x:Bind ViewModel.Parameters}">                    
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="data:Parameter">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*, *" RowDefinitions="*">
                                     <TextBox 
                                         Grid.Column="0"
                                         Text="{x:Bind Type, Mode=TwoWay}"
